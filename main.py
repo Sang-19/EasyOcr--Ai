@@ -3,10 +3,6 @@ import easyocr # Replaces pytesseract
 import tkinter as tk
 from tkinter import filedialog, scrolledtext, Listbox, END, MULTIPLE
 
-# Initialize the EasyOCR reader
-# This can be done once globally. Specify the languages you need.
-# For example, ['en'] for English.
-# It might take a moment to load the models the first time.
 try:
     reader = easyocr.Reader(['en']) 
 except Exception as e:
@@ -24,9 +20,6 @@ def extract_text_from_image(image_path):
     
     try:
         result = reader.readtext(image_path)
-        # The result is a list of tuples, where each tuple contains
-        # (bounding_box, text, confidence_score).
-        # We'll extract and join all the detected text strings.
         extracted_text = "\n".join([text for (bbox, text, prob) in result])
         if not extracted_text:
             return "No text found."
